@@ -40,6 +40,7 @@ public class YouTrackTest {
 
         IssueFormPage formPage = root.toIssueForm();
         formPage.createIssue(issueAdded);
+        
         IssuePage issuePage = root.toIssuePage();
         Issue issue = issuePage.getLastIssue();
         assertEquals(expectedIssue, issue);
@@ -71,9 +72,17 @@ public class YouTrackTest {
 
     @Test
     public void emptySummary() {
+        Issue simpleIssue = new Issue("aaa", "bbb");
         IssueFormPage formPage = root.toIssueForm();
+        formPage.createIssue(simpleIssue);
+
+        formPage = root.toIssueForm();
         formPage.createIssue("", "bbb");
         formPage.closeError();
+
+        IssuePage issuePage = root.toIssuePage();
+        assertEquals(simpleIssue, issuePage.getLastIssue());
+        issuePage.deleteLastIssue();
     }
 
     @Test
@@ -141,7 +150,6 @@ public class YouTrackTest {
             IssuePage issuePage = root.toIssuePage();
             Issue issue = issuePage.getLastIssue();
             assertEquals(expectedIssue, issue);
-            root.switchTo();
         }
 
         for (int i = 0; i < issuesN; i++) {
