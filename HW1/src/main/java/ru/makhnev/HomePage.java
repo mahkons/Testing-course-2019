@@ -14,12 +14,14 @@ public class HomePage extends Page {
     }
 
     public IssueFormPage toIssueForm() {
+        switchTo();
         IssueFormPage formPage = new IssueFormPage(driver, "http://localhost:8080/dashboard#newissue=yes");
         waitElementClickable(By.cssSelector(ISSUE_FORM_CSS), 10).click();
         return formPage;
     }
 
     public IssuePage toIssuePage() {
+        switchTo();
         IssuePage issuePage = new IssuePage(driver, "http://localhost:8080/issues");
         waitElementClickable(By.cssSelector(ISSUES_CSS), 10).click();
         return issuePage;
